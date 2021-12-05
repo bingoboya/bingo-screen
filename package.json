@@ -1,0 +1,26 @@
+{
+  "name": "wly-screen",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode staging",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons": "^0.0.11",
+    "axios": "^0.24.0",
+    "element-plus": "^1.2.0-beta.5",
+    "nprogress": "^0.2.0",
+    "vue": "^3.2.16",
+    "vue-router": "4",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.3",
+    "sass": "^1.44.0",
+    "unplugin-auto-import": "^0.5.1",
+    "unplugin-vue-components": "^0.17.2",
+    "vite": "^2.6.4",
+    "vite-plugin-style-import": "^1.4.0"
+  }
+}
