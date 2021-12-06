@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import request from './utils/request'
+import globalConfig from "@/config";
 
 import 'styles/index.scss'
 
@@ -12,8 +13,7 @@ import 'styles/index.scss'
 //   console.log(222, res);
 // })
 
-console.log('环境变量', import.meta.env);
-console.log('环境变量2', import.meta.env.VITE_APP_TITLE);
+console.log('环境变量', import.meta.env, globalConfig);
 const app = createApp(App)
 app.config.globalProperties.$request = request
 app.config.globalProperties.$abc = 'request'

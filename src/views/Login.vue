@@ -5,6 +5,7 @@
 
 <script setup>
 import request from '@/utils/request'
+import {Local} from '@/utils/storage'
 // import { useRouter, useRoute } from 'vue-router'
 // const { appContext: {config: {globalProperties: { $request }}} } = getCurrentInstance()
 // console.log(5525,$request, getCurrentInstance())
@@ -13,8 +14,11 @@ const goHome = () => {
   router.push('/')
 }
 onMounted(() => {
+  Local.setItem('age1', 202)
+  Local.setItem('age1', 203)
+  Local.setItem('userinfo', {age: 30, name: 'jack'})
   request.get('/login', {name: 'bingo'}).then((res)=>{
-    console.log(res)
+    console.log('res', res)
   })
 })
 </script>
