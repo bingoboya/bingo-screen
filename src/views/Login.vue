@@ -1,12 +1,14 @@
 <template>
-  <div>login</div>
-  <el-button @click="goHome">{{$abc}}回首页</el-button>
+  <div>
+    login
+    <a-button @click="goHome" type="primary">回首页</a-button>
+  </div>
+  
 </template>
 
 <script setup>
 import request from '@/utils/request'
 import {Local} from '@/utils/storage'
-// import { useRouter, useRoute } from 'vue-router'
 // const { appContext: {config: {globalProperties: { $request }}} } = getCurrentInstance()
 // console.log(5525,$request, getCurrentInstance())
 const router = useRouter()

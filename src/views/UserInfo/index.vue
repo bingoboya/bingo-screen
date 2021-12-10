@@ -1,6 +1,7 @@
 <template>
-  <div>welcome</div>
-  <router-link to="/login">去登陆</router-link>
+  <div>
+    UserInfo个人中心
+  </div>
 </template>
 
 <script>

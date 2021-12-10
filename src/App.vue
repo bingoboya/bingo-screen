@@ -3,12 +3,12 @@
 
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <el-config-provider :locale="locale">
-      <router-view></router-view>
-  </el-config-provider>
+  <router-view></router-view>
 </template>
 <script setup>
-import { ElConfigProvider } from 'element-plus'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-const locale = zhCn
+
 </script>
+<style>
+@import './assets/style/index.scss';
+@import './assets/style/reset.css';
+</style>

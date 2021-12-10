@@ -1,6 +1,7 @@
 <template>
-  <div>welcome</div>
-  <router-link to="/login">去登陆</router-link>
+  <div>
+    Datasearch
+  </div>
 </template>
 
 <script>

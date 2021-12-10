@@ -1,6 +1,7 @@
 <template>
-  <div>welcome</div>
-  <router-link to="/login">去登陆</router-link>
+  <div>
+    区间数据
+  </div>
 </template>
 
 <script>
