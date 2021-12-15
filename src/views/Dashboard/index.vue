@@ -63,6 +63,8 @@
   </div>
 </template>
 <script setup>
+// import AntvDemo from 'components/AntvDemo/index.vue'
+
 import SalesProPie from 'components/Echarts/SalesProPie.vue'
 import request from '@/utils/request'
 import EnergySystem from 'components/Echarts/EnergySystem.vue'

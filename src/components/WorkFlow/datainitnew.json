@@ -1,0 +1,414 @@
+{
+  "nodes": [
+    {
+      "id": "31c49a17-0c22-47cf-983b-154e5d210b0c",
+      "type": "initiate",
+      "x": 43,
+      "y": 65,
+      "properties": {}
+    },
+    {
+      "id": "a6d560c0-8714-48bd-b3f7-fe3b91fd9472",
+      "type": "rect",
+      "x": 163,
+      "y": 65,
+      "properties": {
+        "status": 1
+      },
+      "text": {
+        "x": 163,
+        "y": 65,
+        "value": "提交合同审批"
+      }
+    },
+    {
+      "id": "4e1143bc-b592-4e7d-a7cf-78787629e37c",
+      "type": "condition",
+      "x": 300,
+      "y": 65,
+      "properties": {
+        "status": 1
+      }
+    },
+    {
+      "id": "5c1255b5-e8ff-4306-b07d-cbdee41e7c6b",
+      "type": "finish",
+      "x": 300,
+      "y": 172,
+      "properties": {}
+    },
+    {
+      "id": "0ca63d74-aa74-47b4-8bba-134337f00783",
+      "type": "rect",
+      "x": 476,
+      "y": 65,
+      "properties": {
+        "status": 1
+      },
+      "text": {
+        "x": 476,
+        "y": 65,
+        "value": "多人会签"
+      }
+    },
+    {
+      "id": "6053a382-0d34-456b-8cf5-6a129238826d",
+      "type": "rect",
+      "x": 804,
+      "y": 65,
+      "properties": {},
+      "text": {
+        "x": 804,
+        "y": 65,
+        "value": "营销主管"
+      }
+    },
+    {
+      "id": "22682038-a64b-4d16-9ae8-ac8a76c9bd60",
+      "type": "condition",
+      "x": 598,
+      "y": 242,
+      "properties": {}
+    },
+    {
+      "id": "7bc0dde5-24b7-4e71-9920-aa541c99838d",
+      "type": "rect",
+      "x": 163,
+      "y": 242,
+      "properties": {},
+      "text": {
+        "x": 163,
+        "y": 242,
+        "value": "交易主管"
+      }
+    },
+    {
+      "id": "a1d52296-38a4-45b7-a097-e7cf03464400",
+      "type": "rect",
+      "x": 598,
+      "y": 339,
+      "properties": {},
+      "text": {
+        "x": 598,
+        "y": 339,
+        "value": "交易人员"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "f431a8eb-23b4-41ed-9bfc-8cb89e1b62a3",
+      "type": "polyline",
+      "sourceNodeId": "31c49a17-0c22-47cf-983b-154e5d210b0c",
+      "targetNodeId": "a6d560c0-8714-48bd-b3f7-fe3b91fd9472",
+      "startPoint": {
+        "x": 63,
+        "y": 65
+      },
+      "endPoint": {
+        "x": 113,
+        "y": 65
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 63,
+          "y": 65
+        },
+        {
+          "x": 93,
+          "y": 65
+        },
+        {
+          "x": 93,
+          "y": 65
+        },
+        {
+          "x": 83,
+          "y": 65
+        },
+        {
+          "x": 83,
+          "y": 65
+        },
+        {
+          "x": 113,
+          "y": 65
+        }
+      ]
+    },
+    {
+      "id": "ba94ef6b-9093-4af9-a382-27fb82c9022c",
+      "type": "polyline",
+      "sourceNodeId": "a6d560c0-8714-48bd-b3f7-fe3b91fd9472",
+      "targetNodeId": "4e1143bc-b592-4e7d-a7cf-78787629e37c",
+      "startPoint": {
+        "x": 213,
+        "y": 65
+      },
+      "endPoint": {
+        "x": 275,
+        "y": 65
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 213,
+          "y": 65
+        },
+        {
+          "x": 275,
+          "y": 65
+        }
+      ]
+    },
+    {
+      "id": "24ab75a5-f7a8-4a6c-90b5-a41292825b03",
+      "type": "polyline",
+      "sourceNodeId": "4e1143bc-b592-4e7d-a7cf-78787629e37c",
+      "targetNodeId": "5c1255b5-e8ff-4306-b07d-cbdee41e7c6b",
+      "startPoint": {
+        "x": 300,
+        "y": 90
+      },
+      "endPoint": {
+        "x": 300,
+        "y": 152
+      },
+      "properties": {},
+      "text": {
+        "x": 300,
+        "y": 115.609375,
+        "value": "归档"
+      },
+      "pointsList": [
+        {
+          "x": 300,
+          "y": 90
+        },
+        {
+          "x": 300,
+          "y": 152
+        }
+      ]
+    },
+    {
+      "id": "d4e2feb7-3493-43d6-a149-b8f2f5b55bc1",
+      "type": "polyline",
+      "sourceNodeId": "4e1143bc-b592-4e7d-a7cf-78787629e37c",
+      "targetNodeId": "0ca63d74-aa74-47b4-8bba-134337f00783",
+      "startPoint": {
+        "x": 325,
+        "y": 65
+      },
+      "endPoint": {
+        "x": 426,
+        "y": 65
+      },
+      "properties": {
+        "status": 1
+      },
+      "text": {
+        "x": 371.59375,
+        "y": 65,
+        "value": "发起会签"
+      },
+      "pointsList": [
+        {
+          "x": 325,
+          "y": 65
+        },
+        {
+          "x": 426,
+          "y": 65
+        }
+      ]
+    },
+    {
+      "id": "8956b3cd-8a9f-4970-9dd9-ef99991da118",
+      "type": "polyline",
+      "sourceNodeId": "0ca63d74-aa74-47b4-8bba-134337f00783",
+      "targetNodeId": "6053a382-0d34-456b-8cf5-6a129238826d",
+      
+      "properties": {
+        "status": 2
+      },
+      "text": {
+        "x": 642.59375,
+        "y": 65,
+        "value": "需要主管审批"
+      }
+      
+    },
+    
+    {
+      "id": "bfe3b2cb-46f6-40de-a0ee-1b4e49bb10d6",
+      "type": "polyline",
+      "sourceNodeId": "6053a382-0d34-456b-8cf5-6a129238826d",
+      "targetNodeId": "22682038-a64b-4d16-9ae8-ac8a76c9bd60",
+      "startPoint": {
+        "x": 804,
+        "y": 82
+      },
+      "endPoint": {
+        "x": 623,
+        "y": 242
+      },
+      "properties": {},
+      "text": {
+        "x": 804,
+        "y": 160.609375,
+        "value": "营销主管out"
+      },
+      "pointsList": [
+        {
+          "x": 804,
+          "y": 82
+        },
+        {
+          "x": 804,
+          "y": 242
+        },
+        {
+          "x": 623,
+          "y": 242
+        }
+      ]
+    },
+    {
+      "id": "dc540815-a35f-4a57-b0fb-fd0fdf65d4b7",
+      "type": "polyline",
+      "sourceNodeId": "22682038-a64b-4d16-9ae8-ac8a76c9bd60",
+      "targetNodeId": "7bc0dde5-24b7-4e71-9920-aa541c99838d",
+      "startPoint": {
+        "x": 573,
+        "y": 242
+      },
+      "endPoint": {
+        "x": 213,
+        "y": 242
+      },
+      "properties": {},
+      "text": {
+        "x": 411.59375,
+        "y": 242,
+        "value": "提交给交易主管审批"
+      },
+      "pointsList": [
+        {
+          "x": 573,
+          "y": 242
+        },
+        {
+          "x": 213,
+          "y": 242
+        }
+      ]
+    },
+    {
+      "id": "e193112a-1f85-40cd-9131-5c8750238be0",
+      "type": "polyline",
+      "sourceNodeId": "7bc0dde5-24b7-4e71-9920-aa541c99838d",
+      "targetNodeId": "a6d560c0-8714-48bd-b3f7-fe3b91fd9472",
+      "startPoint": {
+        "x": 163,
+        "y": 225
+      },
+      "endPoint": {
+        "x": 163,
+        "y": 82
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 163,
+          "y": 225
+        },
+        {
+          "x": 163,
+          "y": 82
+        }
+      ]
+    },
+    {
+      "id": "6dc58c66-33b6-4962-b9d5-113292a45eee",
+      "type": "polyline",
+      "sourceNodeId": "22682038-a64b-4d16-9ae8-ac8a76c9bd60",
+      "targetNodeId": "a1d52296-38a4-45b7-a097-e7cf03464400",
+      "startPoint": {
+        "x": 598,
+        "y": 267
+      },
+      "endPoint": {
+        "x": 598,
+        "y": 322
+      },
+      "properties": {},
+      "text": {
+        "x": 597,
+        "y": 286.609375,
+        "value": "提交给交易人员审批"
+      },
+      "pointsList": [
+        {
+          "x": 598,
+          "y": 267
+        },
+        {
+          "x": 598,
+          "y": 297
+        },
+        {
+          "x": 598,
+          "y": 297
+        },
+        {
+          "x": 598,
+          "y": 292
+        },
+        {
+          "x": 598,
+          "y": 292
+        },
+        {
+          "x": 598,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "id": "a957d80f-457c-448b-975f-b0e542e9ad93",
+      "type": "polyline",
+      "sourceNodeId": "a1d52296-38a4-45b7-a097-e7cf03464400",
+      "targetNodeId": "7bc0dde5-24b7-4e71-9920-aa541c99838d",
+      "startPoint": {
+        "x": 548,
+        "y": 339
+      },
+      "endPoint": {
+        "x": 163,
+        "y": 259
+      },
+      "properties": {},
+      "text": {
+        "x": 296.59375,
+        "y": 339,
+        "value": "交易人员out"
+      },
+      "pointsList": [
+        {
+          "x": 548,
+          "y": 339
+        },
+        {
+          "x": 163,
+          "y": 339
+        },
+        {
+          "x": 163,
+          "y": 259
+        }
+      ]
+    }
+  ]
+}

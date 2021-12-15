@@ -94,6 +94,12 @@ export const constantRouterMap = [
             component: () => import('components/Demo/index.vue'),
             name: 'demo',
             meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'easydemo',
+            component: () => import('components/Demo/easydemo.vue'),
+            name: 'easydemo',
+            meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
           }
         ]
       }

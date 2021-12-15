@@ -100,6 +100,11 @@ const list = [
     key: '4',
     title: 'demo',
     path: '/datamon/demo',
+  },
+  {
+    key: '5',
+    title: 'easydemo',
+    path: '/datamon/easydemo',
   }
 ];
 const collapsed = ref(false);
