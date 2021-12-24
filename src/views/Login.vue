@@ -9,6 +9,8 @@
 <script setup>
 import request from '@/utils/request'
 import {Local} from '@/utils/storage'
+import qs from 'qs'
+import _ from 'lodash'
 // const { appContext: {config: {globalProperties: { $request }}} } = getCurrentInstance()
 // console.log(5525,$request, getCurrentInstance())
 const router = useRouter()
@@ -19,7 +21,11 @@ onMounted(() => {
   Local.setItem('age1', 202)
   Local.setItem('age1', 203)
   Local.setItem('userinfo', {age: 30, name: 'jack'})
-  request.get('/login', {name: 'bingo'}).then((res)=>{
+  const query = {name: 'bingo'}
+  request({
+    url: `/weather/login?${qs.stringify(query)}`,
+    method: 'get'
+  }).then((res)=>{
     console.log('res', res)
   })
 })

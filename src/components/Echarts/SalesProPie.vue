@@ -24,14 +24,11 @@ watch(()=>props.options, () => {
         name: '储能SOC',
         type: 'liquidFill',
         amplitude: '3%', // 波浪幅度
-        radius: '80%',
+        radius: '90%',
         waveAnimation: true,
         animation: true,
         data: [props.options / 100],
         // center: ['25%', '75%'],
-        itemStyle: {
-          color: 'red'
-        },
         outline: {
           show: false,
           borderDistance: 0,
@@ -43,7 +40,8 @@ watch(()=>props.options, () => {
           }
         },
         itemStyle: {
-          shadowBlur: 0
+          shadowBlur: 0,
+          color: '#8597d1'
         },
         backgroundStyle: {
           borderColor: 'rgb(164, 219, 119)',

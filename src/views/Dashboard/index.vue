@@ -3,116 +3,356 @@
     <div class="main-top">
       <div class="main-top-left">
         <div class="main-top-left-top">
-          <div class="custom-card" style="margin-top: 5px;height: 100%;">
-            <div>金华储能</div>
-            <div>业主：{{ state.baseInfo.name }}</div>
-            <div>站点地址：{{ state.baseInfo.addr }}</div>
+          <div style="background: #5197FB;" class="custom-basic-card">
+            <div class="header">
+              <div class="circle"></div>
+              <div>金华储能</div>
+            </div>
+            <div class="footer">
+              <div>业主：金华</div>
+              <div>站点地址：金华站点</div>
+            </div>
           </div>
-          <div class="custom-card" style="margin-top: 5px;height: 100%;">
-            <div>基本信息</div>
-            <div>电池类型：{{ state.baseInfo.battery }}</div>
-            <div>接入电压：{{ state.baseInfo.volt }}</div>
-            <div>接入站点：{{ state.baseInfo.incharStation }}</div>
+          <div style="background: #FB908D" class="custom-basic-card">
+            <div class="header">
+              <div class="circle"></div>
+              <div>基本信息</div>
+            </div>
+            <div class="footer">
+              <div>电池类型：磷酸铁锂</div>
+              <div>接入电压：10KV</div>
+              <div>接入站点：金华站点</div>
+            </div>
           </div>
-          <div class="custom-card" style="margin-top: 5px;height: 100%;">
-            <div>运行状态</div>
-            <div>PCS: {{ state.baseInfo.pcsState }}</div>
-            <div>BMS: {{ state.baseInfo.bmsState }}</div>
-            <div>告警信息: {{ state.baseInfo.error }}条</div>
-            <div>安全运行: {{ state.baseInfo.days }}天</div>
+          <div style="background: #42C8A7" class="custom-basic-card">
+            <div class="header">
+              <div class="circle"></div>
+              <div>运行状态</div>
+            </div>
+            <div class="footer">
+              <div style="margin-bottom: 6px;display: flex;align-items: center;">
+                <div style="margin-right: 10px;">PCS:</div>
+                <div>
+                  <span v-if="state.runningState.pcsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span>
+                
+                </div>
+              </div>
+              <div style="margin-bottom: 6px;display: flex;align-items: center;">
+                <div style="margin-right: 10px;">BMS:</div>
+                <div>
+                  <span v-if="state.runningState.bmsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span>
+                </div>
+              </div>
+              
+              <div style="color: #fff">告警信息: {{ state.runningState.errorCount }} 条</div>
+              <div>安全运行: {{ state.runningState.dayCount }} 天</div>
+            </div>
           </div>
         </div>
-        <div class="custom-card" style="margin-top: 5px;height: 200px;">
-          <SalesProPie :options="state.socdata" />
+        <div class="battery-card">
+          <SalesProPie style="background: #edeaea;border-radius: 8px;" :options="state.socdata" />
         </div>
       </div>
       <div class="main-top-right">
-        <div style="height: 30px;text-align: center;">储能系统平均运行效率：XX%</div>
+        <div style="height: 30px;text-align: center;">储能系统平均运行效率：{{ state.avgEfficiency }} %</div>
         <div class="system-wrapper">
           <div
-            class="custom-card"
+            class="custom-card-wrapper"
             v-for="(item, index) in state.energyRunCart"
             :key="index"
+            style="display: flex;flex-direction: column;
+                    align-items: center;
+                  justify-content: center;"
           >
-            <div class="custom-card-header">
-              <div style="height: 10px;font-size:12px;">{{ item.title }}</div>
-              <div style="height: 10px;font-size:12px;">KW</div>
+            <div>
+              <div style="font-size:12px;">{{ item.title }}</div>
             </div>
-            <div class="custom-card-content">{{ item.number }}</div>
+            <div style="display: flex;align-items: baseline;">
+              <div style="font-size: 22px;">{{ item.val }}</div>
+              <div style="font-size:12px;">{{ item.unit }}</div>
+            </div>
           </div>
         </div>
-        <div class="echart-wrapper chart-card">
-          <EnergyStorage :options="state.energyStorageData" />
+        <div class="echart-wrapper">
+          <NewEnergyStorage
+            style="background: #edeaea;border-radius: 8px;"
+            :options="state.sysPoweroptions"
+          />
         </div>
       </div>
     </div>
     <div class="main-bottom">
-      <div class="chart-card" style="width: 100%;flex:1;">
-        <EnergySystem :options="state.optionspcs" />
+      <div class="chart-card">
+        <NewEnergyPcs
+          style="border-radius: 4px;background: rgb(238, 236, 236);"
+          :legendTitle="['储能系统有功功率', '储能系统无功功率']"
+          :yTitle="['储能系统有功功率', '储能系统无功功率']"
+          :options="state.sysPoweroptions"
+        />
       </div>
-      <div class="chart-card" style="flex:1;">
-        <EnergyPcs :options="state.optionspcssystem" />
+      <div class="chart-card" style=" position: relative;height: 100%;">
+        <div class="bingo">
+          <a-select
+            ref="select"
+            size="small"
+            v-model:value="state.pcsPowerValue"
+            :options="selcOptions()"
+            @change="handleChangePcsPower"
+            style="font-size: 12px;width: 200px"
+          />
+        </div>
+        <NewEnergyPcs
+          style="border-radius: 4px;background: rgb(238, 236, 236);"
+          :legendTitle="state.pcsPowerOptionsTitle"
+          :yTitle="['交流有功功率', '交流无功功率']"
+          :options="state.pcsPowerOptions"
+        />
       </div>
-      <!-- <div style="flex:1;">
-        <EnergyPcs :options="state.optionspcssystem" />
-      </div>-->
-      <div class="chart-card" style="width: 100%;flex:1;">
-        <EnergyPcsVolt :options="state.optionspcsa" />
+      <div class="chart-card" style="position: relative;height: 100%;">
+        <div class="bingo">
+          <a-select
+            ref="select"
+            size="small"
+            v-model:value="state.pcsVolCurValue"
+            :options="selcOptions()"
+            @change="handleChangePcsVolCur"
+            style="font-size: 12px;width: 200px"
+          />
+        </div>
+        <NewEnergyPcs
+          style="border-radius: 4px;background: rgb(238, 236, 236);"
+          :legendTitle="state.pcsVolCurOptionsTitle"
+          :yTitle="['相电压', '相电流']"
+          :options="state.pcsVolCurOptions"
+        />
       </div>
     </div>
   </div>
 </template>
 <script setup>
 // import AntvDemo from 'components/AntvDemo/index.vue'
-
+// const socket = inject("socket");
 import SalesProPie from 'components/Echarts/SalesProPie.vue'
 import request from '@/utils/request'
-import EnergySystem from 'components/Echarts/EnergySystem.vue'
-import EnergyPcs from 'components/Echarts/EnergyPcs.vue'
-import EnergyStorage from 'components/Echarts/EnergyStorage.vue'
-import EnergyPcsVolt from 'components/Echarts/EnergyPcsVolt.vue'
+import qs from 'qs'
+import _ from 'lodash'
+// import EnergySystem from 'components/Echarts/EnergySystem.vue'
+// import EnergyPcs from 'components/Echarts/EnergyPcs.vue'
+import NewEnergyPcs from 'components/Echarts/NewEnergyPcs.vue'
+import NewEnergyStorage from 'components/Echarts/NewEnergyStorage.vue'
+// import EnergyStorage from 'components/Echarts/EnergyStorage.vue'
+// import EnergyPcsVolt from 'components/Echarts/EnergyPcsVolt.vue'
 const state = reactive({
   baseInfo: {},
   energyRunCart: [],
   energyRunCharts: {},
-  optionspcs: {},
-  optionspcsa: {},
-  optionspcssystem: {},
+  sysPoweroptions: [],
+  pcsVolCurOptions: [],
+  pcsVolCurOptionsTitle: [],
+  cachePcsVolCurOptions: [],
+  pcsPowerOptionsTitle: [],
+  pcsPowerOptions: [],
+  cachePcsPowerOptions: [],
   socdata: 0,
   energyStorageData: {},
-  test1Data: 2,
-  testData: {
-    one: { 'name': 'bingo1' },
-    two: { 'name': 'bingo2' },
-    three: { 'name': 'bingo3' },
-    four: [1, 2, 3, 4, 5]
-  }
+  closesetSocket: false,
+  pcsPowerValue: '01#舱',
+  pcsVolCurValue: '01#舱',
+  avgEfficiency: 0, //运行效率
+  runningState: {}
 })
-const getdashboarddata = () => {
-  request.get('/dashboarddata', { name: 'bingo' }).then((res) => {
-    // console.log('res', res)
-    state.baseInfo = res.baseInfo
-    state.energyRunCart = res.energyRun.runCart
-    state.energyRunCharts = res.energyRun.runCharts
-    state.socdata = res.baseInfo.soc
-    state.optionspcs = res.optionspcs
-    state.optionspcsa = res.optionspcsa
-    state.optionspcssystem = res.optionspcssystem
-    const { barData, lineData, category } = res.energyRun.runCharts
-    console.log(556565665, barData, lineData, category);
-    state.energyStorageData = res.energyRun.runCharts
+const selcOptions = () => {
+  const list = []
+  for (let i = 1; i <= 12; i++) {
+    const tit = i < 10 ? `0${i}` : i
+    list.push({
+      label: `${tit}#舱`,
+      value: `${tit}#舱`,
+    });
+  }
+  return list
+}
 
+const getdashboarddata = (query) => {
+  request({
+    url: '/weather/homepage' + '?' + qs.stringify(query),
+    method: 'get'
+  }).then((res) => {
+    console.log('cemsSysInfoEfficiency---', res)
+    const { cemsSysInfoEfficiency, runningState, baseInfo, pcsPowerSeries, pcsVolCurSeries, sysPowerSeries } = res
+    console.log('weather/homepage', res)
+    state.runningState = runningState
+    sysPowerSeries.forEach((item, index) => {
+      item.yAxisIndex = index
+    })
+    state.sysPoweroptions = sysPowerSeries
+    state.cachePcsVolCurOptions = pcsVolCurSeries
+    handleChangePcsVolCur(state.pcsVolCurValue)
+    state.cachePcsPowerOptions = pcsPowerSeries
+    handleChangePcsPower(state.pcsPowerValue)
+    state.socdata = res.soc
+    state.avgEfficiency = res.avgEfficiency
+    state.energyRunCart = fomate(cemsSysInfoEfficiency)
   })
 }
+const handleChangePcsVolCur = (val) => {
+  console.log('handleChangePcsVolCur', val)
+  const cacheData = toRaw(state.cachePcsVolCurOptions)
+  const ret = cacheData.filter(item => {
+    if (item.name.indexOf(val) !== -1) {
+      item.lineStyle = {
+        width: 0.5
+      }
+      if (item.name.indexOf('相电压') !== -1) {
+        item.yAxisIndex = 0 // 设置Y轴
+      }
+      if (item.name.indexOf('相电流') !== -1) {
+        item.yAxisIndex = 1 // 设置Y轴
+      }
+      return item
+    }
+  })
+  const w = ret.map(value => value.name)
+  state.pcsVolCurOptionsTitle = w
+
+  // // console.log('handleChangePcsPower----', cacheData, ret, w)
+  // console.log('yTitle112222', w)
+  state.pcsVolCurOptions = ret
+}
+const handleChangePcsPower = (val) => {
+  console.log('handleChangePcsPower', val)
+  const cacheData = toRaw(state.cachePcsPowerOptions)
+  const ret = cacheData.filter(item => {
+    if (item.name.indexOf(val) !== -1) {
+      item.lineStyle = {
+        width: 0.5
+      }
+      if (item.name.indexOf('有功功率') !== -1) {
+        item.yAxisIndex = 0 // 设置Y轴
+      }
+      if (item.name.indexOf('无功功率') !== -1) {
+        item.yAxisIndex = 1 // 设置Y轴
+      }
+      return item
+    }
+  })
+  const w = ret.map(value => value.name)
+  state.pcsPowerOptionsTitle = w
+
+  // console.log('handleChangePcsPower----', cacheData, ret, w)
+  console.log('yTitle112222', w)
+  state.pcsPowerOptions = ret
+}
+
+
+const fomate = (initData) => {
+  const arr = [
+    { mark: 'rapw', title: '额定功率', val: 2, unit: 'kW' },
+    { mark: 'rcap', title: '额定容量', val: 2, unit: 'kWh' },
+    { mark: 'req', title: '可充电量', val: 2, unit: 'kWh' },
+    { mark: 'rdq', title: '可放电量', val: 2, unit: 'kWh' },
+    { mark: 'npcs', title: 'PCS数量', val: 2, unit: '个' },
+    { mark: 'npcs', title: 'BMS数量', val: 2, unit: '个' },
+    { mark: 'reqp', title: '可充功率', val: 2, unit: 'kW' },
+    { mark: 'rdqp', title: '可放功率', val: 2, unit: 'kW' },
+    { mark: 'ulsoc', title: 'SOC运行上限', val: 2, unit: '%' },
+    { mark: 'llsoc', title: 'SOC运行下限', val: 2, unit: '%' },
+    { mark: 'teq', title: '总充电量', val: 2, unit: 'kWh' },
+    { mark: 'tdq', title: '总放电量', val: 2, unit: 'kWh' },
+  ]
+  arr.forEach(item => {
+    item.val = initData[item.mark]
+  })
+  console.log(arr)
+  return arr
+}
+
+
+let setSocket = () => {
+  // socket.on("sendmsgtoclientdashboard", (res) => {
+  //   aa.value = res
+  //   if (!state.closesetSocket) {
+  //     threatSocket(res)
+  //   }
+  // });
+  socket.on('connect', function () {
+    console.log("连接成功1");
+  });
+  socket.on('push_event', function (data) {
+    console.log('push_event', data);
+
+  });
+  socket.on('push_event2', function (data) {
+    console.log('push_event2', data);
+  });
+}
+
+const threatSocket = (res) => {
+  console.log("#sendmsgtoclientdashboard: ", res);
+}
+
+onMounted(() => {
+  // setSocket()
+})
+
 getdashboarddata()
 const task = setInterval(() => {
   getdashboarddata()
 }, 3000);
 onBeforeUnmount(() => {
   clearInterval(task)
+  // 停止threatSocket
+  state.closesetSocket = true
 })
 </script>
 <style lang="scss" scoped>
+.battery-card {
+  background: #eee;
+  border-radius: 8px;
+  margin-top: 5px;
+  height: 200px;
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgb(0, 0, 0, 0.1);
+  }
+}
+.custom-basic-card {
+  margin-top: 5px;
+  // height: 100%;
+  background: #eee;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgb(0, 0, 0, 0.1);
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 14px;
+    border-bottom: 1px solid #fff;
+    .circle {
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: #fff;
+    }
+  }
+  .footer {
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+.bingo {
+  z-index: 999;
+  left: calc(50% - 100px);
+  position: absolute;
+}
 .main-page-wrapper {
   display: flex;
   flex-direction: column;
@@ -140,28 +380,43 @@ onBeforeUnmount(() => {
       width: 100%;
       height: 100%;
       .system-wrapper {
+        background: rgb(235, 233, 233);
+        border-radius: 8px;
+        padding: 10px;
         flex: 1;
         margin: 10px;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-gap: 10px 10px;
         // grid-auto-rows: 50px;
+        .custom-card-wrapper {
+          background: #fff;
+          border-radius: 8px;
+          border: 1px solid rgb(226, 219, 219);
+          &:hover {
+            box-shadow: 0 2px 12px 0 rgb(0, 0, 0, 0.1);
+          }
+        }
       }
       .echart-wrapper {
         flex: 1;
-        // background: rgb(156, 154, 154);
+        margin: 0 10px;
+        background: #edeaea;
+        border-radius: 8px;
       }
     }
   }
   .main-bottom {
     display: flex;
-    padding: 20px;
+    padding: 10px;
     justify-content: space-between;
     flex: 3;
     .chart-card {
       margin: 0 10px;
       border-radius: 4px;
-      background: #ffffff;
+      background: rgb(238, 236, 236);
+      width: 100%;
+      flex: 1;
     }
   }
 }

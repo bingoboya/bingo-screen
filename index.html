@@ -5,10 +5,55 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.3.11/dist/g6.min.js"></script>
-    <title>Vite App</title>
+
+    <!-- <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script> -->
+    <!-- cloudflare在safari中加载失败 -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
+    <title>数据监控</title>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    
+      <script type="module" src="/src/main.js"></script>
+      <script type="text/javascript">
+        // connect();
+        
+        // function connect() {
+        //     var loginUserNum = '79';
+        //     var opts = {
+        //         query: 'loginUserNum=' + loginUserNum
+        //     };
+        //     const socket = io('http://222.128.19.51:7001')
+        //     // socket = io.connect('http://222.128.19.51:7001', opts);
+        //     socket.on('connect', function () {
+        //         console.log("连接成功2");
+        //     });
+        //     socket.on('push_event', function (data) {
+        //         console.log('push_event', JSON.parse(data));
+        //     });
+        //         socket.on('push_event2', function (data) {
+        //         console.log('push_event2',data);
+    
+        //     });
+    
+        //     socket.on('disconnect', function () {
+        //     });
+        // }
+        
+        // function output(message) {
+        //     $('#console').prepend(element);
+        // }
+    
+        // function serverOutput(message) {
+        //     $('#console').prepend(element);
+        // }
+    
+        // function send() {
+        //     console.log('发送数据');
+        //     socket.emit('text','你好');
+        // }
+    
+    
+    </script>
   </body>
 </html>

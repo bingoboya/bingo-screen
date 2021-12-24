@@ -1,14 +1,23 @@
+// const toolbar = new G6.ToolBar({
+//   position: { x: 10, y: 10 },
+// });
+const grid = new G6.Grid();
 export const newGraph = (container) => {
   addSelectDOM(container)
-  const toolbar = new G6.ToolBar();
+  const toolbar = new G6.ToolBar({
+    position: { x: 600, y: 60 },
+  });
   const width = container.scrollWidth;
   const height = container.scrollHeight || 500;
   const graph = new G6.Graph({
     container: 'container',
     width,
     height,
-    fitCenter: true,
+    // fitCenter: true,
+    plugins: [toolbar, grid],
     renderer: 'svg',
+    // fitView: true, //设置是否将图适配到画布中；
+    fitViewPadding: [0, 0, 0, 0], //画布上四周的留白宽度。
     // linkCenter: true,
     modes: {
       default: ['drag-canvas', 'drag-node',
@@ -88,8 +97,11 @@ const onEvent = (graph) => {
   //   });
   // });
   // // 监听鼠标点击节点
-  // graph.on('node:click', (e) => {
-  //   // 先将所有当前有 click 状态的节点的 click 状态置为 false
+  graph.on('node:click', (e) => {
+    const nodeItem = e.item;
+    const model = nodeItem.getModel();
+    console.log('点击node', model.id)
+    // 先将所有当前有 click 状态的节点的 click 状态置为 false
   //   const clickNodes = graph.findAllByState('node', 'click');
   //   clickNodes.forEach((cn) => {
   //     graph.setItemState(cn, 'click', false);
@@ -98,7 +110,7 @@ const onEvent = (graph) => {
   //   console.log('当前点击的类型', nodeItem.getType(), nodeItem.getModel());
   //   // 设置目标节点的 click 状态 为 true
   //   graph.setItemState(nodeItem, 'click', true);
-  // });
+  });
   // graph.on('edge:mouseenter', function (evt) {
   //   const edge = evt.item;
   //   const model = edge.getModel();
@@ -140,28 +152,28 @@ const onEvent = (graph) => {
 }
 
 const addSelectDOM = (container) => {
-  // Add a selector to DOM
-  const selector = document.createElement('select');
-  selector.id = 'selector';
-  const selection1 = document.createElement('option');
-  selection1.value = 'default';
-  selection1.innerHTML = 'Default Mode';
-  const selection2 = document.createElement('option');
-  selection2.value = 'addNode';
-  selection2.innerHTML = 'Add Node (By clicking canvas)';
-  const selection3 = document.createElement('option');
-  selection3.value = 'addEdge';
-  selection3.innerHTML = 'Add Edge (By clicking two end nodes)';
-  selector.appendChild(selection1);
-  selector.appendChild(selection2);
-  selector.appendChild(selection3);
-  container.appendChild(selector);
+  // // Add a selector to DOM
+  // const selector = document.createElement('select');
+  // selector.id = 'selector';
+  // const selection1 = document.createElement('option');
+  // selection1.value = 'default';
+  // selection1.innerHTML = 'Default Mode';
+  // const selection2 = document.createElement('option');
+  // selection2.value = 'addNode';
+  // selection2.innerHTML = 'Add Node (By clicking canvas)';
+  // const selection3 = document.createElement('option');
+  // selection3.value = 'addEdge';
+  // selection3.innerHTML = 'Add Edge (By clicking two end nodes)';
+  // selector.appendChild(selection1);
+  // selector.appendChild(selection2);
+  // selector.appendChild(selection3);
+  // container.appendChild(selector);
 
-  // const btn = document.createElement('BUTTON')
-  // const t=document.createTextNode("CLICK ME");
-  // btn.appendChild(t);
-  // btn.onclick = ()=>{
-  //   console.log(3333, selector, btn);
-  // }
-  // container.appendChild(btn)
+  // // const btn = document.createElement('BUTTON')
+  // // const t=document.createTextNode("CLICK ME");
+  // // btn.appendChild(t);
+  // // btn.onclick = ()=>{
+  // //   console.log(3333, selector, btn);
+  // // }
+  // // container.appendChild(btn)
 }

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --mode development",
-    "build": "vite build --mode staging",
+    "stage": "vite build --mode staging",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
@@ -18,8 +19,13 @@
     "echarts": "^5.2.2",
     "echarts-liquidfill": "^3.1.0",
     "element-plus": "^1.2.0-beta.5",
+    "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
+    "qs": "^6.10.2",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
     "uuid": "^8.3.2",
     "vue": "^3.2.16",
     "vue-json-pretty": "^2.0.6",

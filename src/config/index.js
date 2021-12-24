@@ -7,6 +7,7 @@ const EnvConfig = {
     timeout: 8000,
     baseApi: '/',
     mockApi: 'https://www.fastmock.site/mock/23a93d9800a894dc5f7bff1d4412b2b8/api'
+    // mockApi: 'http://222.128.19.51'
   },
   test: {
     nameSpace: 'WLY_SCREEN_TEST', // localstorage的命名空间
@@ -14,6 +15,7 @@ const EnvConfig = {
     timeout: 8000,
     baseApi: '//test.futurefe.com/api',
     mockApi: 'https://www.fastmock.site/mock/23a93d9800a894dc5f7bff1d4412b2b8/api'
+    // mockApi: 'http://222.128.19.51'
   },
   prod: {
     nameSpace: 'WLY_SCREEN_PROD', // localstorage的命名空间
@@ -21,6 +23,7 @@ const EnvConfig = {
     timeout: 8000,
     baseApi: '//futurefe.com/api',
     mockApi: 'https://www.fastmock.site/mock/23a93d9800a894dc5f7bff1d4412b2b8/api'
+    // mockApi: 'http://222.128.19.51'
   }
 }
 export default {

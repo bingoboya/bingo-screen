@@ -1,12 +1,7 @@
 <template>
   <div style="width: 100%; height: 100%; position: relative">
     <!-- 控制面板 -->
-    <Control
-      v-if="state.lf"
-      class="demo-control"
-      :lf="state.lf"
-      @catData="catData"
-    />
+    <Control v-if="state.lf" class="demo-control" :lf="state.lf" @catData="catData" />
     <!-- 节点面板 -->
     <NodePanel v-if="state.lf" :lf="state.lf" :node-list="nodeList" />
     <div style="width: 100%; height: 100%" id="lf-container"></div>
@@ -18,11 +13,7 @@
     destroyOnClose
     title="查看数据"
   >
-    <vue-json-pretty
-      style="height: 100%; overflow-y: auto"
-      :path="'res'"
-      :data="state.graphData"
-    />
+    <vue-json-pretty style="height: 100%; overflow-y: auto" :path="'res'" :data="state.graphData" />
   </a-modal>
 </template>
 
@@ -31,6 +22,8 @@ import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 import request from "@/utils/request";
 import LogicFlow from "@logicflow/core";
+import qs from 'qs'
+import _ from 'lodash'
 import {
   Menu,
   DndPanel,
@@ -87,10 +80,10 @@ const lfData = {
       type: "pro-text",
       x: 325,
       y: 718,
-      properties: {fontSize: '30px',},
+      properties: { fontSize: '30px', },
       text: {
         x: 325,
-        
+
         y: 718,
         value: "-2000.1",
       },
@@ -219,7 +212,10 @@ const catData = () => {
   console.log("catData", state.graphData.nodes);
   state.dataVisible = true;
 };
-request.get("/getflow").then((res) => {
+request({
+  url: '/weather/getflow',
+  method: 'get'
+}).then((res) => {
   console.log("getflow", res);
 });
 </script>

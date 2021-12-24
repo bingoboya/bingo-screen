@@ -4,6 +4,7 @@
     <a-select
       v-model:value="value"
       mode="multiple"
+      max-tag-count="responsive"
       style="width: 200px"
       placeholder="Please select"
       :options="[...Array(25)].map((_, i) => ({ value: (i + 10).toString(36) + (i + 1) }))"

@@ -3,7 +3,9 @@ import router from '@/router'
 import Cookies from 'js-cookie'
 import globalConfig from '@/config'
 import qs from 'qs';
-import { ElMessage } from "element-plus";
+import {
+  ElMessage
+} from "element-plus";
 const TOKEN_INVALID = 'token 认证失败'
 const NETWORK_ERROR = '网络异常la'
 // axios.get(globalConfig.mockApi + '/login').then((res)=>{
@@ -39,24 +41,31 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     // console.log('环境变量1', import.meta.env);
-    const {MODE} = import.meta.env
-    const { code, data, msg } = response.data
-    if(MODE === 'production'){
+    const {
+      MODE
+    } =
+    import.meta.env
+    const {
+      code,
+      data,
+      msg
+    } = response.data
+    if (MODE === 'production') {
       return response.data
-    }else{
+    } else {
       return data
     }
-  //  if(code === 200) {
+    //  if(code === 200) {
     //  return response
-  //  }else 
-   if (code === 401){
-    ElMessage.error(TOKEN_INVALID)
-    router.push('./401')
-    return Promise.reject(TOKEN_INVALID)
-   } else {
-    ElMessage.error(msg || NETWORK_ERROR)
-    return Promise.reject(msg || NETWORK_ERROR)
-   }
+    //  }else 
+    if (code === 401) {
+      ElMessage.error(TOKEN_INVALID)
+      router.push('./401')
+      return Promise.reject(TOKEN_INVALID)
+    } else {
+      ElMessage.error(msg || NETWORK_ERROR)
+      return Promise.reject(msg || NETWORK_ERROR)
+    }
   },
   // error => {
   //   // 兼容blob下载出错json提示
@@ -128,31 +137,33 @@ service.interceptors.response.use(
   // }
 )
 
-// function request(options) {
-//   options.method = options.method || 'get'
-//   if(options.method.toLowerCase() === 'get'){
-//     // console.log('options2:', options.data)
-//     options.params = options.data
-//     // console.log('options3:', options.data)
-    
-//   }
-//   if(globalConfig.env === 'prod'){
-//     service.defaults.baseURL = globalConfig.baseApi
-//   }else{
-//     service.defaults.baseURL = globalConfig.mock ? globalConfig.mockApi : globalConfig.baseApi 
-//   }
-//   return service(options)
-// }
+function request(config) {
+  config.method = config.method || 'get'
+  if (config.method.toLowerCase() === 'get' && config.data) {
+    console.log('options2:', config, config.data)
+    // config.params = config.data
+    // console.log('options3:', config.data)
+    config.params = config.data // 参数已经存在于 url中
+    config.url = config.url + '?' + qs.stringify(config.data)
+  }
+  if (globalConfig.env === 'prod') {
+    service.defaults.baseURL = globalConfig.baseApi
+  } else {
+    service.defaults.baseURL = globalConfig.mock ? globalConfig.mockApi : globalConfig.baseApi
+  }
+  return service(config)
+}
 
-// ['get', 'post', 'put', 'delete', 'patch'].forEach(item => {
-//   request[item] = (url, data, options) => {
-//     console.log('options1:', qs.stringify(data))
-//     return request({
-//       url, data,
-//       method: item,
-//       ...options
-//     })
-//   }
-// })
+['get', 'post', 'put', 'delete', 'patch'].forEach(item => {
+  request[item] = (url, data, options) => {
+    console.log('options1:', qs.stringify(data))
+    return request({
+      url,
+      data,
+      method: item,
+      ...options
+    })
+  }
+})
 
-export default service
+export default request

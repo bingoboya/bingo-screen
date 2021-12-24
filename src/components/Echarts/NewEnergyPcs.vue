@@ -1,6 +1,5 @@
 <template>
   <!-- PCS交流有功功率/无功功率 -->
-  
     <VueEcharts style="height: 100%;width: 100%" :options="state.myOptions" />
 </template>
 <script setup>
@@ -10,13 +9,23 @@ const props = defineProps({
     type: Object,
     default: () => { }
   },
+  yTitle: {
+    type: Array,
+    default: () => []
+  },
+  legendTitle: {
+    type: Array,
+    default: () => []
+  }
 })
 const state = reactive({
   myOptions: {},
-  value1: 'lucy'
 })
+
 const { options } = toRefs(props)
 watch(options, () => {
+  const legendTitle = toRaw(props.legendTitle)
+  // console.log('yTitle11:', legendTitle)
   const colors = ['#5470C6', '#EE6666'];
   state.myOptions = {
     color: colors,
@@ -27,22 +36,22 @@ watch(options, () => {
       }
     },
     grid: {
-      right: '36',
-      left: '36',
-      bottom: '18%',
-      top: '12%'
+      right: '38',
+      left: '38',
+      bottom: '18',
+      top: '32'
     },
 
-    legend: {
-      // type: 'scroll',orient: 'vertical',
-      // right: '14%',
-      bottom: 0,
-      itemGap: 2,
-      data: ['储能系统有功功率', '储能系统无功功率'],
-      textStyle: {
-        fontSize: 8
-      }
-    },
+    // legend: {
+    //   // type: 'scroll',orient: 'vertical',
+    //   // right: '14%',
+    //   bottom: 0,
+    //   itemGap: 2,
+    //   data: legendTitle,
+    //   textStyle: {
+    //     fontSize: 8
+    //   }
+    // },
     xAxis: [
       {
         type: 'category',
@@ -60,45 +69,45 @@ watch(options, () => {
     yAxis: [
       {
         type: 'value',
-        name: '储能系统无功功率',
-        nameTextStyle: {
-          color: 'red',
-          fontSize: 8
-        },
-        show: true,
-        position: 'right',
-        offset: 0,
-        axisLine: {
-          show: true,
-          lineStyle: {
-            color: 'red',
-          }
-        },
-        axisLabel: {
-          formatter: '{value} KW',
-          fontSize: 8,
-          color: 'red'
-        }
-      },
-      {
-        type: 'value',
-        name: '储能系统有功功率',
+        name: props.yTitle[0],
         nameTextStyle: {
           color: '#5470C6',
           fontSize: 8
         },
         show: true,
         position: 'left',
+        offset: 0,
         axisLine: {
           show: true,
           lineStyle: {
-            color: '#5470C6'
+            color: '#5470C6',
           }
         },
         axisLabel: {
           formatter: '{value} KW',
           fontSize: 8,
           color: '#5470C6'
+        }
+      },
+      {
+        type: 'value',
+        name: props.yTitle[1],
+        nameTextStyle: {
+          color: 'red',
+          fontSize: 8
+        },
+        show: true,
+        position: 'right',
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: 'red'
+          }
+        },
+        axisLabel: {
+          formatter: '{value} KW',
+          fontSize: 8,
+          color: 'red'
         }
       }
     ],
@@ -125,10 +134,3 @@ watch(options, () => {
   };
 })
 </script>
-<style lang="scss" scoped>
-.bingo {
-  z-index: 999;
-  left: calc(50% - 60px);
-  position: absolute;
-}
-</style>

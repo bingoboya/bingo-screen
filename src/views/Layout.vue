@@ -12,7 +12,7 @@
           <NavWrapper />
         </div>
       <div class="change_position">
-        选择站点
+        <!-- 选择站点 -->
         <a-select
           v-model:value="selectValue"
           style="width: 200px"
@@ -36,6 +36,23 @@ import UserDropdown from 'components/UserDropdown/index.vue'
 import Logo from '@/assets/logo.png'
 // import { HomeOutlined } from '@ant-design/icons-vue';
 import NavWrapper from './NavWrapper/index.vue'
+
+// const socket = inject("socket");
+// socket.on("connection", (res) => {
+//   console.log("#connection: ", res);
+// });
+// socket.on("sendmsgtoclientlayout", (res) => {
+//   console.log("#sendmsgtoclientlayout: ", res);
+// });
+// setTimeout(() => {
+//   console.log('发送信息');
+//   socket.emit('message', 232323)
+// }, 4000);
+console.log('asdasdas')
+
+
+
+
 const selectValue = ref(undefined)
 const router = useRouter()
 const handleSelect = (val) => {
@@ -128,7 +145,7 @@ const options = ref([
     flex: 1;
     display: flex;
     // background: rgb(231, 228, 228)
-    background: #f0f2f5;
+    // background: #f0f2f5;
   }
 }
 </style>

@@ -80,4 +80,12 @@ a{
     padding: 10px;
   }
 }
-
+/*
+设置antdv 下拉选择框的背景为半透明
+*/
+.ant-select-dropdown{
+  background-color: #ffffffad !important;
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: #e6f7ffc2 !important;
+  }
+}

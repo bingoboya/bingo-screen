@@ -33,7 +33,7 @@
         initChart()
       })
       watch(() => ctx.options, () => {
-        console.log('watch-option');
+        // console.log('watch-option');
         initChart()
       })
       return {

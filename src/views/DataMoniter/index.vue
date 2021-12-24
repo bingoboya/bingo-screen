@@ -29,7 +29,7 @@ import anav from './anav.vue'
     width: 100%;
     overflow: hidden;
     overflow-y: auto;
-    padding: 10px 0 10px 10px;
+    padding: 10px 10px 10px 10px;
   }
 }
 </style>
