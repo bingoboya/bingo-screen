@@ -96,11 +96,11 @@ const list = [
     title: '区间数据',
     path: '/datamon/datarange',
   },
-  {
-    key: '4',
-    title: 'demo',
-    path: '/datamon/demo',
-  },
+  // {
+  //   key: '4',
+  //   title: 'demo',
+  //   path: '/datamon/demo',
+  // },
   {
     key: '5',
     title: 'easydemo',

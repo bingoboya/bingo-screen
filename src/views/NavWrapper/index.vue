@@ -12,11 +12,11 @@
       </template>
       数据监控
     </a-menu-item>
-    <a-menu-item key="app1" disabled>
+    <a-menu-item key="/warnmsg">
       <template #icon>
         <appstore-outlined />
       </template>
-      优化调度
+      警告信息
     </a-menu-item>
     <a-menu-item key="app2" disabled>
       <template #icon>
@@ -28,14 +28,14 @@
       <template #icon>
         <appstore-outlined />
       </template>
-      警告信息
+      优化调度
     </a-menu-item>
-    <a-menu-item key="/user">
+    <!-- <a-menu-item key="/user">
       <template #icon>
         <SettingOutlined />
       </template>
       用户
-    </a-menu-item>
+    </a-menu-item> -->
   </a-menu>
 </template>
 

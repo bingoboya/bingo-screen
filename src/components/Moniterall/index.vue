@@ -1,10 +1,11 @@
 <template>
   <div style="height: 100%;">
     <!-- 电力拓扑图 -->
-    <!-- <div style="display: flex;
+    <div style="display: flex;
     justify-content: center;width: 100%;">
-      <img style="width: 90%" :src="tuyuan" alt="">
-    </div> -->
+      <!-- <img style="width: 90%" :src="tuyuan" alt=""> -->
+      <EasyDemo />  
+    </div>
     <div style="padding: 10px;background: rgb(235, 233, 233)">
       <div style="padding-left: 10px;">储能系统平均运行效率：{{state.socData}} %</div>
       <div class="system-wrapper">
@@ -30,6 +31,7 @@
 </template>
 
 <script setup>
+import EasyDemo from "@/components/Demo/easydemo.vue"
 import request from '@/utils/request';
 import tuyuan from '@/assets/tuyuan.jpg'
 import qs from 'qs'

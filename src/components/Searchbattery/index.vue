@@ -45,6 +45,7 @@
               :class="[showHeightLight(itemInfo.title) ? 'height_light_card_blue' : '', 'custom-card-wrapper']"
               v-for="(itemInfo, i) in item.bcsInfo"
               :key="itemInfo.mark + i"
+              @click="toggleshowModal(item.name, itemInfo.mark, `${itemInfo.title}(${itemInfo.unit})`)"
               style="display: flex;flex-direction: column;
                     align-items: center;cursor: pointer;
                     padding: 4px 0;
@@ -63,13 +64,28 @@
       </div>
     </div>
   </div>
+  <a-modal
+    v-model:visible="visible"
+    width="80%"
+    height="86%"
+    :destroyOnClose="true"
+    :bodyStyle="{height: '94%'}"
+    :footer="null"
+    title=""
+  >
+    <DataRange :modalParams='state.modalParams' :modalTitle="state.modalTitle" />
+  </a-modal>
 </template>
 <script setup>
 import request from '@/utils/request';
+import DataRange from "components/DataRange/index.vue"
 import qs from 'qs'
 import _ from 'lodash'
+const visible = ref(false)
 const state = reactive({// 只监听时间变化调用接口
   query: {},
+  modalParams: [],
+  modalTitle: '',
   dataList: [], // 显示的数据
   allDataList: [], // 缓存所有数据
   machineNums: [],
@@ -77,6 +93,14 @@ const state = reactive({// 只监听时间变化调用接口
   searchDataList: [], // 数据查询的下拉列表
   deviceNameList: [] // 设备名
 })
+
+const toggleshowModal = (val, mark, modalTitle) => {
+  const name = val.replace(/[^0-9]/ig,"")
+  state.modalParams = ['bcs', name, mark]
+  state.modalTitle = modalTitle
+  console.log('showModal', state.modalParams, modalTitle);
+  visible.value = true
+}
 const getData = (query) => {
   request({
     url: '/weather/bcspage' + '?' + qs.stringify(query, { arrayFormat: 'comma' }),
@@ -119,7 +143,7 @@ const showHeightLight = (title) => {
   return tem && tem.includes(title)
 }
 const onChange = (value, dateString) => {
-  console.log('watch-111-日期Selected Time: ', value, dateString);
+  // console.log('watch-111-日期Selected Time: ', value, dateString);
   getData({dataTime: dateString})
 }
 const filterDataList = (allDataList, query) => {
@@ -203,7 +227,11 @@ watch(() => _.cloneDeep(state.query), (n, o) => {
 
 
 </script>
-
+<style>
+/* .ant-modal-content{
+  height: 100%;
+} */
+</style>
 <style lang="scss" scoped>
 .height_light_card_red {
   position: relative;

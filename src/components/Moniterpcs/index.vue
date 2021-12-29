@@ -43,6 +43,7 @@
             <div
               :class="[showHeightLight(itemInfo.title) ? 'height_light_card_blue' : '', 'custom-card-wrapper']"
               v-for="(itemInfo, i) in item.pcsInfo"
+              @click="toggleshowModal(item.name, itemInfo.mark, `${itemInfo.title}(${itemInfo.unit})`)"
               :key="itemInfo.mark + i"
               style="display: flex;flex-direction: column;
                     align-items: center;
@@ -66,6 +67,7 @@
             <div
               :class="[showHeightLight(itemSignalInfo.title) ? itemSignalInfo.val ? 'height_light_card_red' : 'height_light_card_green' : '', 'custom-card-wrapper']"
               v-for="(itemSignalInfo, ind) in item.signalInfo"
+              @click="toggleshowModal(item.name, itemSignalInfo.mark, `${itemSignalInfo.title}(${itemSignalInfo.unit})`)"
               :key="itemSignalInfo + ind"
               :style="{ 
                 background: itemSignalInfo.val ? 'rgb(249 197 195)' : 'rgb(186 233 221)',
@@ -83,14 +85,31 @@
       </div>
     </div>
   </div>
+  <a-modal
+    v-model:visible="visible"
+    width="80%"
+    height="86%"
+    :destroyOnClose="true"
+    :bodyStyle="{height: '94%'}"
+    :footer="null"
+    title=""
+  >
+    <DataRange :modalParams='state.modalParams' :modalTitle="state.modalTitle" />
+  </a-modal>
 </template>
 <script setup>
+import DataRange from "components/DataRange/index.vue"
+
 import request from '@/utils/request';
 import qs from 'qs'
 import _ from 'lodash'
+const visible = ref(false)
+
 const state = reactive({
   // 只监听时间变化调用接口
   query: {},
+  modalParams: [],
+  modalTitle: '',
   dataList: [], // 显示的数据
   allDataList: [], // 缓存所有数据
   machineNums: [],
@@ -98,6 +117,13 @@ const state = reactive({
   searchDataList: [], // 数据查询的下拉列表
   deviceNameList: [] // 设备名
 })
+const toggleshowModal = (val, mark, modalTitle) => {
+  const name = val.replace(/[^0-9]/ig,"")
+  state.modalParams = ['pcs', name, mark]
+  state.modalTitle = modalTitle
+  console.log('showModal', state.modalParams, modalTitle);
+  visible.value = true
+}
 const showHeightLight = (title) => {
   const tem = toRaw(state.query.searchTag)
   return tem && tem.includes(title)

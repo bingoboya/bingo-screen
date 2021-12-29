@@ -185,7 +185,12 @@ const getdashboarddata = (query) => {
     console.log('weather/homepage', res)
     state.runningState = runningState
     sysPowerSeries.forEach((item, index) => {
+      item.lineStyle = {
+        width: 0.5
+      }
       item.yAxisIndex = index
+      item.smooth = true
+      item.showSymbol = false
     })
     state.sysPoweroptions = sysPowerSeries
     state.cachePcsVolCurOptions = pcsVolCurSeries
@@ -205,6 +210,8 @@ const handleChangePcsVolCur = (val) => {
       item.lineStyle = {
         width: 0.5
       }
+      item.smooth = true
+      item.showSymbol = false
       if (item.name.indexOf('相电压') !== -1) {
         item.yAxisIndex = 0 // 设置Y轴
       }
@@ -229,6 +236,8 @@ const handleChangePcsPower = (val) => {
       item.lineStyle = {
         width: 0.5
       }
+      item.smooth = true
+      item.showSymbol = false
       if (item.name.indexOf('有功功率') !== -1) {
         item.yAxisIndex = 0 // 设置Y轴
       }

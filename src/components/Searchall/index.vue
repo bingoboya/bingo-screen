@@ -78,7 +78,7 @@ const fomate = (initData) => {
 //   getData()
 // }, 3000)
 const onChange = (value, dateString) => {
-  console.log('watch-111-日期Selected Time: ', value, dateString);
+  // console.log('watch-111-日期Selected Time: ', value, dateString);
   state.query.selectTime = dateString
 }
 

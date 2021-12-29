@@ -1,7 +1,7 @@
 <template>
   <div style="display:flex;flex-direction: column;height: 100%;width:100%;">
-    <div id="container" style="flex:7;height: 100%;width:100%;" />
-    <div style="flex:3">运行效率</div>
+    <div id="container" style="height: 100%;width:100%;" />
+    <!-- <div style="flex:3">运行效率</div> -->
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import two from '@/assets/two.svg'
 import generator from '@/assets/generator.svg'
 import bolang from '@/assets/bolang.svg'
 import Chart from '@antv/chart-node-g6';
+import { initData } from './initData'
 const Util = G6.Util;
 let graph;
 const state = reactive({
@@ -247,7 +248,7 @@ const main = async () => {
   );
   G6.registerNode('justline', { // 黄线-使用svg的path自定义直线
     draw(cfg, group) {
-      console.log('justline', group);
+      // console.log('justline', group);
       // 如果 cfg 中定义了 style 需要同这里的属性进行融合
       const keyShape = group.addShape('path', {
         attrs: {
@@ -745,7 +746,7 @@ const main = async () => {
       // 主外框
       const width = cfg.size[0]
       const height = cfg.size[1]
-      console.log('battery', width, height)
+      // console.log('battery', width, height)
       const keyShape = group.addShape('rect', {
         attrs: {
           x: 0,
@@ -2328,7 +2329,7 @@ const main = async () => {
           [0.5, 1]
         ];
       },
-      
+
     },
     'rect',
   );
@@ -2588,14 +2589,15 @@ const main = async () => {
   // graph.fitView();
   // graph.fitCenter();
   // 切换默认行为 Listen to the selector, change the mode when the selector is changed
-  selector.addEventListener('change', (e) => {
-    const value = e.target.value;
-    // change the behavior mode
-    graph.setMode(value);
-    console.log('state.graph.save()', graph.save());
-  });
+  // selector.addEventListener('change', (e) => {
+  //   const value = e.target.value;
+  //   // change the behavior mode
+  //   graph.setMode(value);
+  //   console.log('state.graph.save()', graph.save());
+  // });
 }
 onMounted(async () => {
+  console.log('initData', initData)
   state.antvData = await getAntvData()
   await main()
   setInterval(() => {
@@ -2614,7 +2616,9 @@ const getAntvData = async () => {
     url: '/weather/getantvdata',
     method: 'get'
   })
+  // return initData.data
 }
+
 onBeforeUnmount(() => {
   console.log('销毁grp', graph);
   // const grp = toRaw(state.graph)

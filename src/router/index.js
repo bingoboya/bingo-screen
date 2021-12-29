@@ -28,6 +28,12 @@ export const constantRouterMap = [
         meta: { activeName: 7, title: '个人中心' },
       },
       {
+        path: '/warnmsg',
+        component: () => import( /* webpackChunkName: "UserInfo" */ 'views/WarnMsg/index.vue'),
+        hidden: false,
+        meta: { activeName: 7, title: '警告信息' },
+      },
+      {
         path: 'datamon',
         component: () => import('views/DataMoniter/index.vue'),
         hidden: false,
@@ -89,12 +95,12 @@ export const constantRouterMap = [
             name: 'Datarange',
             meta: { activeName: 7, title: '区间数据', icon: 'index', affix: true, noCache: true }
           },
-          {
-            path: 'demo',
-            component: () => import('components/Demo/index.vue'),
-            name: 'demo',
-            meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
-          },
+          // {
+          //   path: 'demo',
+          //   component: () => import('components/Demo/index.vue'),
+          //   name: 'demo',
+          //   meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
+          // },
           {
             path: 'easydemo',
             component: () => import('components/Demo/easydemo.vue'),
@@ -105,6 +111,7 @@ export const constantRouterMap = [
       }
     ]
   },
+  
   {
     path: '/login',
     meta: { activeName: 7, title: '登录', noCache: true},

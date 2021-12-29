@@ -45,6 +45,7 @@
               :class="[showHeightLight(itemInfo.title) ? 'height_light_card_blue' : '', 'custom-card-wrapper']"
               v-for="(itemInfo, i) in item.pcsInfo"
               :key="itemInfo.mark + i"
+              @click="toggleshowModal(item.name, itemInfo.mark, `${itemInfo.title}(${itemInfo.unit})`)"
               style="display: flex;flex-direction: column;
                     align-items: center;
                     padding: 4px 0;cursor: pointer;
@@ -67,7 +68,8 @@
               :class="[showHeightLight(itemSignalInfo.title) ? itemSignalInfo.val ? 'height_light_card_red' : 'height_light_card_green' : '', 'custom-card-wrapper']"
               v-for="(itemSignalInfo, ind) in item.signalInfo"
               :key="itemSignalInfo + ind"
-              :style="{ 
+              @click="toggleshowModal(item.name, itemSignalInfo.mark, `${itemSignalInfo.title}(${itemSignalInfo.unit})`)"
+              :style="{
                 background: itemSignalInfo.val ? 'rgb(249 197 195)' : 'rgb(186 233 221)',
                 color: itemSignalInfo.val ? 'rgb(239 99 94)' : '#13ad13'
               }"
@@ -83,18 +85,32 @@
       </div>
     </div>
   </div>
+  <a-modal
+    v-model:visible="visible"
+    width="80%"
+    height="86%"
+    :destroyOnClose="true"
+    :bodyStyle="{height: '94%'}"
+    :footer="null"
+    title=""
+  >
+    <DataRange :modalParams='state.modalParams' :modalTitle="state.modalTitle" />
+  </a-modal>
 </template>
 
 <script setup>
-import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
+import DataRange from "components/DataRange/index.vue"
 import request from '@/utils/request';
 import qs from 'qs'
 import _ from 'lodash'
+const visible = ref(false)
 const state = reactive({// 只监听时间变化调用接口
   query: {},
   dataList: [], // 显示的数据
   allDataList: [], // 缓存所有数据
   machineNums: [],
+  modalParams: [],
+  modalTitle: '',
   machineNames: [],
   searchDataList: [], // 数据查询的下拉列表
   deviceNameList: [] // 设备名
@@ -103,6 +119,15 @@ const showHeightLight = (title) => {
   const tem = toRaw(state.query.searchTag)
   return tem && tem.includes(title)
 }
+
+const toggleshowModal = (val, mark, modalTitle) => {
+  const name = val.replace(/[^0-9]/ig,"")
+  state.modalParams = ['pcs', name, mark]
+  state.modalTitle = modalTitle
+  console.log('showModal', state.modalParams, modalTitle);
+  visible.value = true
+}
+
 const getData = (query) => {
   request({
     url: '/weather/pcspage' + '?' + qs.stringify(query, { arrayFormat: 'comma' }),
@@ -192,8 +217,8 @@ const fomatePcsInfo = (initData) => {
 }
 
 const onChange = (value, dateString) => {
-  console.log('watch-111-日期Selected Time: ', value, dateString);
-  getData({dataTime: dateString})
+  // console.log('watch-111-日期Selected Time: ', value, dateString);
+  getData({ dataTime: dateString })
 }
 const filterDataList = (allDataList, query) => {
   const { selectNums, selectName, searchTag } = query
@@ -235,9 +260,7 @@ watch(() => _.cloneDeep(state.query), (n, o) => {
 })
 
 </script>
-
 <style lang="scss" scoped>
-
 .height_light_card_red {
   position: relative;
   // margin: auto;
@@ -247,7 +270,7 @@ watch(() => _.cloneDeep(state.query), (n, o) => {
   // font-size: 20px;
   // opacity: 1 !important;
   color: #fff !important;
-  background: #FB908D !important;
+  background: #fb908d !important;
   border: 2px solid #fb908d;
   // border: 2px solid gold;
   // border-radius: 10px;
@@ -336,7 +359,7 @@ watch(() => _.cloneDeep(state.query), (n, o) => {
   // color: #fff;
   // font-size: 20px;
   background: #a8c4eb !important;
-  border: 2px solid #5197FB;
+  border: 2px solid #5197fb;
   // border: 2px solid gold;
   // border-radius: 10px;
   // background: gold;
@@ -360,7 +383,7 @@ watch(() => _.cloneDeep(state.query), (n, o) => {
     right: -5px;
     bottom: -5px;
     // border: 2px solid gold;
-    border: 2px solid #5197FB;
+    border: 2px solid #5197fb;
     transition: all 0.5s;
     animation: clippath 3s infinite linear;
     border-radius: 10px;
