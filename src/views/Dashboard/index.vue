@@ -41,13 +41,16 @@
               <div style="margin-bottom: 6px;display: flex;align-items: center;">
                 <div style="margin-right: 10px;">BMS:</div>
                 <div>
-                  <span v-if="state.runningState.bmsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
-                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span>
+                  <span style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <!-- <span v-if="state.runningState.bmsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span> -->
                 </div>
               </div>
               
-              <div style="color: #fff">告警信息: {{ state.runningState.errorCount }} 条</div>
-              <div>安全运行: {{ state.runningState.dayCount }} 天</div>
+              <div style="color: #fff">告警信息: {{ 0 }} 条</div>
+              <!-- <div style="color: #fff">告警信息: {{ state.runningState.errorCount }} 条</div> -->
+              <div>安全运行: {{ 100 }} 天</div>
+              <!-- <div>安全运行: {{ state.runningState.dayCount }} 天</div> -->
             </div>
           </div>
         </div>
@@ -56,7 +59,8 @@
         </div>
       </div>
       <div class="main-top-right">
-        <div style="height: 30px;text-align: center;">储能系统平均运行效率：{{ state.avgEfficiency }} %</div>
+        <div style="height: 30px;text-align: center;">储能系统平均运行效率：{{ 90 }} %</div>
+        <!-- <div style="height: 30px;text-align: center;">储能系统平均运行效率：{{ state.avgEfficiency }} %</div> -->
         <div class="system-wrapper">
           <div
             class="custom-card-wrapper"
@@ -78,7 +82,7 @@
         <div class="echart-wrapper">
           <NewEnergyStorage
             style="background: #edeaea;border-radius: 8px;"
-            :options="state.sysPoweroptions"
+            :options="state.energyStorageBenefits"
           />
         </div>
       </div>
@@ -149,6 +153,7 @@ const state = reactive({
   energyRunCart: [],
   energyRunCharts: {},
   sysPoweroptions: [],
+  energyStorageBenefits: [], // 储能收益
   pcsVolCurOptions: [],
   pcsVolCurOptionsTitle: [],
   cachePcsVolCurOptions: [],
@@ -192,6 +197,9 @@ const getdashboarddata = (query) => {
       item.smooth = true
       item.showSymbol = false
     })
+    
+    state.energyStorageBenefits = calcufit()
+    console.log('energyStorageBenefits', state.energyStorageBenefits)
     state.sysPoweroptions = sysPowerSeries
     state.cachePcsVolCurOptions = pcsVolCurSeries
     handleChangePcsVolCur(state.pcsVolCurValue)
@@ -201,6 +209,52 @@ const getdashboarddata = (query) => {
     state.avgEfficiency = res.avgEfficiency
     state.energyRunCart = fomate(cemsSysInfoEfficiency)
   })
+}
+const getDaysInOneMonth = (year, month)=>{
+  month = parseInt(month, 10);
+  var d= new Date(year, month, 0);
+  return d.getDate();
+}
+const calcufit = () => {
+  const curDate = new Date()
+  const curYear = curDate.getFullYear()
+  const curMonth = curDate.getMonth() + 1
+  const curMonthDays = curDate.getDate()
+  const lastMonthDays = getDaysInOneMonth(curYear, curMonth - 1)
+  const curMonthDataArr = Array(curMonthDays).fill(1700)
+  const lastMonthDataArr = Array(lastMonthDays).fill(1700)
+  console.log('lastMonthDays', lastMonthDays, curMonth, curMonthDays, curMonthDataArr, lastMonthDataArr)
+  const mockEnergyStorageBenefits = [
+      {
+        name: '本月',
+        type: 'line',
+        areaStyle: {},
+        smooth: true,
+        symbol: "none",
+        emphasis: {
+          focus: 'series'
+        },
+        data: curMonthDataArr
+        // data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+      },
+      {
+        name: '上月',
+        type: 'line',
+        symbol: "none",
+        smooth: true,
+        label: {
+          show: true,
+          position: 'top'
+        },
+        areaStyle: {},
+        emphasis: {
+          focus: 'series'
+        },
+        data: lastMonthDataArr
+        // data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 1290, 130, 130]
+      }
+    ]
+  return mockEnergyStorageBenefits
 }
 const handleChangePcsVolCur = (val) => {
   console.log('handleChangePcsVolCur', val)
@@ -308,7 +362,7 @@ onMounted(() => {
 
 getdashboarddata()
 const task = setInterval(() => {
-  getdashboarddata()
+  // getdashboarddata()
 }, 3000);
 onBeforeUnmount(() => {
   clearInterval(task)

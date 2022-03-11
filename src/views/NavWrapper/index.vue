@@ -18,13 +18,13 @@
       </template>
       警告信息
     </a-menu-item>
-    <a-menu-item key="app2" disabled>
+    <a-menu-item key="/energyBenefits">
       <template #icon>
         <appstore-outlined />
       </template>
-      储能损益
+      储能收益
     </a-menu-item>
-    <a-menu-item key="app3" disabled>
+    <a-menu-item key="/optimizedSchedul">
       <template #icon>
         <appstore-outlined />
       </template>

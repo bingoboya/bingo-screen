@@ -21,12 +21,25 @@ const props = defineProps({
 const state = reactive({
   myOptions: {},
 })
-
+const getDaysInOneMonth = (year, month)=>{
+  month = parseInt(month, 10);
+  var d= new Date(year, month, 0);
+  return d.getDate();
+}
+const curDate = new Date()
+const curYear = curDate.getFullYear()
+const curMonth = curDate.getMonth() + 1
+const curMonthDays = curDate.getDate()
+const lastMonthDays = getDaysInOneMonth(curYear, curMonth - 1)
+const maxDays = Math.max(curMonthDays, lastMonthDays)
+const xAxisDays = [...Array(maxDays)].map((val, index) => {
+  return index + 1
+})
 const { options } = toRefs(props)
 watch(options, () => {
   state.myOptions = {
     title: {
-      text: '储能损益'
+      text: '储能收益'
     },
     tooltip: {
       trigger: 'axis',
@@ -51,8 +64,7 @@ watch(options, () => {
       {
         type: 'category',
         boundaryGap: false,
-        // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        data: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+        data: xAxisDays
       }
     ],
     yAxis: [
@@ -60,35 +72,36 @@ watch(options, () => {
         type: 'value'
       }
     ],
-    series: [
-      {
-        name: '本月',
-        type: 'line',
-        stack: 'Total',
-        areaStyle: {},
-        smooth: true,
-        emphasis: {
-          focus: 'series'
-        },
-        data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
-      },
+    series: options
+    // series: [
+    //   {
+    //     name: '本月',
+    //     type: 'line',
+    //     stack: 'Total',
+    //     areaStyle: {},
+    //     smooth: true,
+    //     emphasis: {
+    //       focus: 'series'
+    //     },
+    //     data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 90, 230, 210]
+    //   },
 
-      {
-        name: '上月',
-        type: 'line',
-        stack: 'Total',
-        smooth: true,
-        label: {
-          show: true,
-          position: 'top'
-        },
-        areaStyle: {},
-        emphasis: {
-          focus: 'series'
-        },
-        data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 1290, 130, 130]
-      }
-    ]
+    //   {
+    //     name: '上月',
+    //     type: 'line',
+    //     stack: 'Total',
+    //     smooth: true,
+    //     label: {
+    //       show: true,
+    //       position: 'top'
+    //     },
+    //     areaStyle: {},
+    //     emphasis: {
+    //       focus: 'series'
+    //     },
+    //     data: [820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 1290, 130, 130]
+    //   }
+    // ]
   };
 })
 </script>

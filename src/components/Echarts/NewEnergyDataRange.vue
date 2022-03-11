@@ -59,19 +59,25 @@ watch(titleDataList, () => {
     yAxis: [
       {
         type: 'value',
-        scale: true
+        // scale: true,
+        max: 1002,
+        min: 809,
+        axisLabel: {
+          formatter: '{value} KWh',
+          fontSize: 8,
+          color: '#5470C6'
+        }
       }
     ],
     series: [
       {
         name: '',
         type: 'line',
-        stack: 'Total',
-        areaStyle: {},
-        smooth: true,
+        // areaStyle: {},
+        smooth: false,
         showSymbol: false,
         lineStyle: {
-          width: 0
+          width: 0.5
         },
         emphasis: {
           focus: 'series'

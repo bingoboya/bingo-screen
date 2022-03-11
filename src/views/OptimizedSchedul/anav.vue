@@ -14,11 +14,11 @@
     >
       <template v-for="item in list" :key="item.path">
         <template v-if="!item.children">
-          <a-menu-item :key="item.path">
+          <a-menu-item :key="item.path" v-if="item.showTitle">
             <template #icon>
               <PieChartOutlined />
             </template>
-            {{ item.title }}
+            <span>{{ item.title }}</span>
           </a-menu-item>
         </template>
         <template v-else>
@@ -36,77 +36,59 @@ const route = useRoute();
 // console.log(router, toRaw(route).path.value);
 
 const selectedKeys = ref([toRaw(route).path.value]);
+console.log('selectedKeys', selectedKeys)
 const list = [
   {
     key: '1',
-    title: '监视模块',
-    path: '/datamon',
-    children: [
-      {
-        key: '1.1',
-        title: '全局',
-        path: '/datamon/moniterall',
-      },
-      {
-        key: '1.2',
-        title: 'PCS',
-        path: '/datamon/moniterpcs',
-      },
-      {
-        key: '1.3',
-        title: 'BMS',
-        path: '/datamon/moniterbms',
-      },
-      {
-        key: '1.4',
-        title: '电池簇',
-        path: '/datamon/moniterbattery',
-      },
-    ],
+    title: '策略优化',
+    showTitle: true,
+    path: '/optimizedSchedul/schedul',
   },
   {
     key: '2',
-    title: '数据查询',
-    path: '/datamon/',
-    children: [
-      {
-        key: '2.1',
-        title: '全局',
-        path: '/datamon/searchall',
-      },
-      {
-        key: '2.2',
-        title: 'PCS',
-        path: '/datamon/searchpcs',
-      },
-      {
-        key: '2.3',
-        title: 'BMS',
-        path: '/datamon/searchbms',
-      },
-      {
-        key: '2.4',
-        title: '电池簇',
-        path: '/datamon/searchbattery',
-      },
-    ],
+    title: '历史结果',
+    showTitle: true,
+    path: '/optimizedSchedul/historyres',
   },
   {
     key: '3',
-    title: '区间数据',
-    path: '/datamon/datarange',
+    title: '策略生成',
+    showTitle: false,
+    path: '/optimizedSchedul/strategygeneration',
   },
-  // {
-  //   key: '4',
-  //   title: 'demo',
-  //   path: '/datamon/demo',
-  // },
+  {
+    key: '4',
+    title: '策略优化',
+    showTitle: false,
+    path: '/optimizedSchedul/strategyoptimization',
+  },
   {
     key: '5',
-    title: 'easydemo',
-    path: '/datamon/easydemo',
+    title: '策略对比',
+    showTitle: false,
+    path: '/optimizedSchedul/strategycomparison',
+  },
+  {
+    key: '31',
+    title: 'dddd',
+    showTitle: false,
+    path: '/optimizedSchedul/demomo',
   }
 ];
+
+// setTimeout(() => {
+//   router.push({
+//     path: '/optimizedSchedul/historyres'
+//   })
+//   selectedKeys.value = ['/optimizedSchedul/historyres']
+// }, 2000);
+// setTimeout(() => {
+//   router.push({
+//     path: '/optimizedSchedul/schedul'
+//   })
+//   selectedKeys.value = ['/optimizedSchedul/schedul']
+// }, 4000);
+
 const collapsed = ref(false);
 const openKeys = ref(['/datamon'])
 // 将从缓存中取出openKeys

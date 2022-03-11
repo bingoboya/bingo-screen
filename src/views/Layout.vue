@@ -11,8 +11,8 @@
         <div class="nav_wrapper">
           <NavWrapper />
         </div>
-      <div class="change_position">
         <!-- 选择站点 -->
+      <!-- <div class="change_position">
         <a-select
           v-model:value="selectValue"
           style="width: 200px"
@@ -20,7 +20,7 @@
           @select="handleSelect"
           placeholder="选择站点"
         />
-      </div>
+      </div> -->
       <div class="user_dropdown">
         <UserDropdown />
       </div>

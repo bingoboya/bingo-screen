@@ -26,6 +26,7 @@
           // chart = Echarts.init(dom, ctx.theme)
         }
         if (ctx.options) {
+          // console.log('initChart', ctx.options)
           chart.setOption(ctx.options)
         }
       }

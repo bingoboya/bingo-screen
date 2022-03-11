@@ -34,6 +34,57 @@ export const constantRouterMap = [
         meta: { activeName: 7, title: '警告信息' },
       },
       {
+        path: '/energyBenefits',
+        component: () => import( 'views/EnergyBenefits/index.vue'),
+        hidden: false,
+        meta: { activeName: 7, title: '储能收益' },
+      },
+      {
+        path: '/optimizedSchedul',
+        component: () => import( 'views/OptimizedSchedul/index.vue'),
+        hidden: false,
+        redirect: '/optimizedSchedul/schedul',
+        meta: { activeName: 7, title: '优化调度' },
+        children: [
+          {
+            path: 'schedul',
+            component: () => import('views/OptimizedSchedul/schedulBetter.vue'),
+            name: 'schedulbetter',
+            meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'historyres',
+            component: () => import('views/OptimizedSchedul/historyRes.vue'),
+            name: 'historyres',
+            meta: { activeName: 7, title: '历史结果', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'strategygeneration',
+            component: () => import('views/OptimizedSchedul/strategyGeneration.vue'),
+            name: 'strategyGeneration',
+            meta: { activeName: 7, title: '策略生成', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'strategyoptimization',
+            component: () => import('views/OptimizedSchedul/strategyOptimization.vue'),
+            name: 'strategyOptimization',
+            meta: { activeName: 7, title: '策略优化', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'strategycomparison',
+            component: () => import('views/OptimizedSchedul/strategyComparison.vue'),
+            name: 'strategyComparison',
+            meta: { activeName: 7, title: '策略对比', icon: 'index', affix: true, noCache: true }
+          },
+          {
+            path: 'demomo',
+            component: () => import('views/OptimizedSchedul/demomo.vue'),
+            name: 'demomo',
+            meta: { activeName: 7, title: 'demo', icon: 'index', affix: true, noCache: true }
+          }
+        ]
+      },
+      {
         path: 'datamon',
         component: () => import('views/DataMoniter/index.vue'),
         hidden: false,
