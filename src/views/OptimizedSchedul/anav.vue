@@ -99,7 +99,7 @@ if (openpenkey) {
 // console.log('openpenkey', openpenkey, 11, openKeys.value, 22);
 
 const menuClick = ({ item, key, keyPath }) => {
-  console.log(22222, item, key, keyPath, keyPath[0] );
+  // console.log(22222, item, key, keyPath, keyPath[0] );
   // 把 keyPath 第一项缓存起来，刷新页面时用来打开
   window.sessionStorage.setItem('openpenkey', JSON.stringify(keyPath[0]))
   router.push({

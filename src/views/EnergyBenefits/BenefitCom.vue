@@ -116,7 +116,7 @@ const getdashboarddata = (query) => {
     method: 'get'
   }).then((res) => {
     const [arr1, arr2, arr3] = calcuDataArr(dataType.value)
-    console.log('arr1, arr2, arr3', arr1, arr2, arr3)
+    // console.log('arr1, arr2, arr3', arr1, arr2, arr3)
     res = {
       "electricityStatistics": [
         {
@@ -189,7 +189,7 @@ const handleChangeYear = () => {
   })
   state.selectedDays = [...arr1]
   getdashboarddata()
-  console.log('每个日期', arr1)
+  // console.log('每个日期', arr1)
  }
 const changeMonth = () => {
   console.log('change-month', state.curMonth)
@@ -228,7 +228,7 @@ const changeMonth = () => {
   }
   state.selectedDays = [...arr1]
   getdashboarddata()
-  console.log('每个日期', arr1)
+  // console.log('每个日期', arr1)
 }
 const calcuDataArr = (dataType) => {
   const lenMonths = 3
@@ -298,7 +298,7 @@ const monthRangeDisablesDate = (time) => {
   return time.getTime() > new Date() || time.getTime() <= new Date(2019, 12, 0)
 }
 const dateRangeCalendarChange = (selecDays) => {
-  console.log(11111111, selecDays)
+  // console.log(11111111, selecDays)
   state.curSelectDay = selecDays
 }
 const changeDateDay = () => {
@@ -333,7 +333,7 @@ const changeDateDay = () => {
   }
   state.selectedDays = [...arr1]
   getdashboarddata()
-  console.log('每个日期', arr1)
+  // console.log('每个日期', arr1)
 }
 
 const dateRangeDisablesDate = (time) => {

@@ -33,8 +33,9 @@
               <div style="margin-bottom: 6px;display: flex;align-items: center;">
                 <div style="margin-right: 10px;">PCS:</div>
                 <div>
-                  <span v-if="state.runningState.pcsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
-                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span>
+                  <span style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <!-- <span v-if="state.runningState.pcsState === 1" style="color: green;background: #fff;padding: 0px 10px;border-radius: 8px;">正常</span>
+                  <span v-else style="color: rgb(194, 31, 3);background: #fff;padding: 0px 10px;border-radius: 8px;">异常</span> -->
                 
                 </div>
               </div>
@@ -136,7 +137,6 @@
   </div>
 </template>
 <script setup>
-// import AntvDemo from 'components/AntvDemo/index.vue'
 // const socket = inject("socket");
 import SalesProPie from 'components/Echarts/SalesProPie.vue'
 import request from '@/utils/request'

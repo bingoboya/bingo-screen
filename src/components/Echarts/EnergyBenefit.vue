@@ -31,7 +31,7 @@ const state = reactive({
 })
 const { options, legendTitle, title, xAxis } = toRefs(props)
 watch([options, xAxis], () => {
-  console.log('xAxis', xAxis.value)
+  // console.log('xAxis', xAxis.value)
   state.myOptions = {
     title: {
       text: title.value

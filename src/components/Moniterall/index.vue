@@ -1,12 +1,12 @@
 <template>
-  <div style="height: 100%;">
+  <div style="justify-content:space-between;height: 100%;display: flex;flex-direction:column;">
     <!-- 电力拓扑图 -->
-    <div style="display: flex;
+    <div style="display: flex;flex:10;overflow: scroll;
     justify-content: center;width: 100%;">
       <!-- <img style="width: 90%" :src="tuyuan" alt=""> -->
       <EasyDemo />  
     </div>
-    <div style="padding: 10px;background: rgb(235, 233, 233)">
+    <div style="flex:3;padding: 10px;background: rgb(235, 233, 233)">
       <div style="padding-left: 10px;">储能系统平均运行效率：{{state.socData}} %</div>
       <div class="system-wrapper">
         <div
@@ -70,15 +70,15 @@ const fomate = (initData) => {
   arr.forEach(item => {
     item.val = initData[item.mark]
   })
-  console.log(arr)
+  // console.log(arr)
   return arr
 }
 getData()
 const task = setInterval(() => {
-  getData()
+  // getData()
 }, 3000)
 onUnmounted(() => {
-  clearInterval(task)
+  // clearInterval(task)
 })
 </script>
 

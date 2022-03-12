@@ -3,6 +3,7 @@
 // });
 const grid = new G6.Grid();
 export const newGraph = (container) => {
+  console.log('create new graph')
   addSelectDOM(container)
   const toolbar = new G6.ToolBar({
     position: { x: 600, y: 60 },

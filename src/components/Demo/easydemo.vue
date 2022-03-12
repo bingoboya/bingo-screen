@@ -1,15 +1,15 @@
 <template>
-  <div style="display:flex;flex-direction: column;height: 100%;width:100%;">
+  <!-- <div style="display:flex;flex-direction: column;height: 100%;width:100%;"> -->
     <div id="container" style="height: 100%;width:100%;" />
     <!-- <div style="flex:3">运行效率</div> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
 import request from '@/utils/request';
 import qs from 'qs'
 import _ from 'lodash'
-import { newGraph, } from '@/components/AntvDemo/newGraph.js'
+import { newGraph } from '@/components/AntvDemo/newGraph.js'
 import testImage from '@/assets/userAvatar.jpeg'
 import three from '@/assets/three.svg'
 import two from '@/assets/two.svg'
@@ -2597,7 +2597,7 @@ const main = async () => {
   // });
 }
 onMounted(async () => {
-  console.log('initData', initData)
+  console.log('initbingo-2322Data', initData)
   state.antvData = await getAntvData()
   await main()
   setInterval(() => {
@@ -2612,18 +2612,19 @@ const getAntvDataLoop = async () => {
   grp && grp.changeData(newData);
 }
 const getAntvData = async () => {
-  return request({
-    url: '/weather/getantvdata',
-    method: 'get'
-  })
-  // return initData.data
+  // return request({
+  //   url: '/weather/getantvdata',
+  //   method: 'get'
+  // })
+  
+  return initData.data
 }
-
 onBeforeUnmount(() => {
-  console.log('销毁grp', graph);
+  console.log('销毁前的grp', graph);
   // const grp = toRaw(state.graph)
   // graph && graph.destroy()
   graph = null
+  console.log('销毁后的grp', graph);
 })
 </script>
 
